@@ -238,8 +238,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 7
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/KSI/Documents/GitHub/StarPers/kycaka_cubbaka/mykey.keystore
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/KSI/Documents/GitHub/StarPers/kycaka_cubbaka/user.keystore
+  AndroidKeyaliasName: user
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -619,7 +619,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   apiCompatibilityLevelPerPlatform:
-    Android: 3
+    Android: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: kycaka_cubbaka
