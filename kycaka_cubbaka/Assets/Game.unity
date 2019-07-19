@@ -14068,6 +14068,7 @@ MonoBehaviour:
   editorImg: {fileID: 2800000, guid: 7416d3f6d544bc94e988e2cb28bf7472, type: 3}
   bg: {fileID: 2015693855}
   BttnExit: {fileID: 0}
+  BttnContAfterPause: {fileID: 785487601}
   numberTeam2: 0
   numberTeam3: 0
   teamOneRC: 0
