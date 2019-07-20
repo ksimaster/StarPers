@@ -77,6 +77,7 @@ public class GameScript : MonoBehaviour {
     public Image bg;
     public GameObject BttnExit;
     public GameObject BttnContAfterPause;
+    public bool contBttnClick = false;
 
     // Для методов выбора команд и их названий 
     
@@ -124,6 +125,56 @@ public class GameScript : MonoBehaviour {
 
         BeforeAfterPause();
         
+    }
+
+    public void ContBttn()
+    {
+        PausePanel.SetActive(false);
+        Time.timeScale = 1;
+        //включение тикания
+        if (!AudioMan.activeSelf && open_audio.activeSelf && T > 0 && T < 7) AudioMan.SetActive(true);
+        //включаем панель статов, если пауза её отключала
+        if (!StatOnOff && !StatList.activeSelf)
+        {
+            StatList.SetActive(true);
+            StatOnOff = true;
+        }
+        //включаем панель правил, если пауза её отключала
+        if (!RulsOnOff && !RulsPanel.activeSelf)
+        {
+            RulsPanel.SetActive(true);
+            RulsOnOff = true;
+        }
+        //включаем панель выбора количества команд, если пауза её отключала
+        if (!NumberOfTeamOnOff && !NumberOfTeam.activeSelf)
+        {
+            NumberOfTeam.SetActive(true);
+            NumberOfTeamOnOff = true;
+        }
+        //включаем панель ввода первой команды, если пауза её отключала
+        if (!NameOfTeam1OnOff && !NameOfTeam1.activeSelf)
+        {
+            NameOfTeam1.SetActive(true);
+            NameOfTeam1OnOff = true;
+        }
+        //включаем панель ввода второй команды, если пауза её отключала
+        if (!NameOfTeam2OnOff && !NameOfTeam2.activeSelf)
+        {
+            NameOfTeam2.SetActive(true);
+            NameOfTeam2OnOff = true;
+        }
+        //включаем панель ввода третьей команды, если пауза её отключала
+        if (!NameOfTeam3OnOff && !NameOfTeam3.activeSelf)
+        {
+            NameOfTeam3.SetActive(true);
+            NameOfTeam3OnOff = true;
+        }
+        //включаем панель начинает команда, если пауза её отключала
+        if (!BeginTeamOnOff && !BeginTeam.activeSelf)
+        {
+            BeginTeam.SetActive(true);
+            BeginTeamOnOff = true;
+        }
     }
 
     public void BeforeAfterPause()
@@ -189,8 +240,8 @@ public class GameScript : MonoBehaviour {
                         }
                         */
         }
-        // необходимо добавить кнопку "Продолжить игру"
-        else if ((Input.GetKeyDown(KeyCode.Escape)/*||Input.GetButtonDown(BttnContAfterPause)*/) && PausePanel.activeSelf && !ExitPanelExit.activeSelf && !ExitPanelMainMenu.activeSelf)
+        // продолжение игры после паузы, "Продолжить игру"
+        else if (Input.GetKeyDown(KeyCode.Escape) && PausePanel.activeSelf && !ExitPanelExit.activeSelf && !ExitPanelMainMenu.activeSelf)
         {
             PausePanel.SetActive(false);
             Time.timeScale = 1;
@@ -787,8 +838,8 @@ public class GameScript : MonoBehaviour {
         {
             if (score > PlayerPrefs.GetInt("score")) PlayerPrefs.SetInt("score", score);
             Time.timeScale = 0;
-            BeforeAfterPause();
-          //  Application.Quit();
+            //BeforeAfterPause();
+            Application.Quit();
         }
         else
         {
@@ -958,119 +1009,7 @@ public class GameScript : MonoBehaviour {
 
     }
 
-    /* //Скрипт по умному с очищением input
-     public void BttnNameOfTeam()
-      {
-          if (numberTeam2)
-          {
-              // Если панелька с вводом команды не включена, надо включить
-              // ВОПРОС КААААК?????????
-             // if(NameOfTeam.ActiveSelf) NameOfTeam.
-              if (ij<3)
-              { 
-              switch (ij)
-              {
-                  case 1:
-                      var input1 = gameObject.GetComponent<InputField>();
-                      var nameTeam1 = new InputField.SubmitEvent();
-                      //se.AddListener(SubmitName);
-                      nameTeam1.AddListener(SubmitName);
-                      input1.onEndEdit = nameTeam1;
-
-                      //второй способ
-                      //or simply use the line below, 
-                      //input.onEndEdit.AddListener(SubmitName);  // This also works
-                      input1.onEndEdit.AddListener(SubmitName);
-
-                      /*private void SubmitName(string arg0)
-                      {
-                        Debug.Log(arg0);
-                     }
-                      */
-    /*       break;
-
-       case 2:
-           var input2 = gameObject.GetComponent<InputField>();
-           var nameTeam2 = new InputField.SubmitEvent();
-           //se.AddListener(SubmitName);
-           nameTeam2.AddListener(SubmitName);
-           input2.onEndEdit = nameTeam2;
-
-           //второй способ
-           //or simply use the line below, 
-           //input.onEndEdit.AddListener(SubmitName);  // This also works
-           input2.onEndEdit.AddListener(SubmitName);
-
-           /*private void SubmitName(string arg0)
-           {
-             Debug.Log(arg0);
-          }
-           */
-    /* break;
-}
- ij++;
- NameOfTeam.SetActive(false);
-
-
-} else
-{
- BeginTeam.SetActive(true);
-}
-
-}
-else if (numberTeam3)
-{
-if (ij < 4)
-{
- switch (ij)
- {
-     case 1:
-         var input1 = gameObject.GetComponent<InputField>();
-         var nameTeam1 = new InputField.SubmitEvent();
-         //se.AddListener(SubmitName);
-         nameTeam1.AddListener(SubmitName);
-         input1.onEndEdit = nameTeam1;
-
-         //второй способ
-         //or simply use the line below, 
-         //input.onEndEdit.AddListener(SubmitName);  // This also works
-         input1.onEndEdit.AddListener(SubmitName);
-
-         /*private void SubmitName(string arg0)
-         {
-           Debug.Log(arg0);
-        }
-         */
-    /*    break;
-
-    case 2:
-        var input2 = gameObject.GetComponent<InputField>();
-        var nameTeam2 = new InputField.SubmitEvent();
-        //se.AddListener(SubmitName);
-        nameTeam2.AddListener(SubmitName);
-        input2.onEndEdit = nameTeam2;
-
-        //второй способ
-        //or simply use the line below, 
-        //input.onEndEdit.AddListener(SubmitName);  // This also works
-        input2.onEndEdit.AddListener(SubmitName);
-
-        /*private void SubmitName(string arg0)
-        {
-          Debug.Log(arg0);
-       }
-        */
-    /* break;
-}
-ij++;
-NameOfTeam.SetActive(false);
-}
-
-
-
-
-
-} */
+  
 
     public void BttnTwoTeam()
     {
