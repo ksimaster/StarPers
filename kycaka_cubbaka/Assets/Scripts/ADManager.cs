@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
@@ -17,13 +18,15 @@ public class ADManager : MonoBehaviour
         RequestBanner();
         RequestInterstitial();
         RequestVideoAD();
+        // моя добавка для загрузки баннера при старте
+        Display_Banner();
 
     }
 
     void RequestBanner()
     {
         string banner_ID = "ca-app-pub-3940256099942544/6300978111";
-        bannerAD = new BannerView(banner_ID, AdSize.SmartBanner, AdPosition.Top);
+        bannerAD = new BannerView(banner_ID, AdSize.SmartBanner, AdPosition.Bottom);
 
         //FOR REAL APP
        // AdRequest adRequest = new AdRequest.Builder().Build();
@@ -73,7 +76,7 @@ public class ADManager : MonoBehaviour
 
     public void Display_IntertitialAD()
     {
-        if (interstitialAd.IsLoaded) {
+        if (interstitialAd.IsLoaded()) {
             interstitialAd.Show();
         }
 
@@ -81,7 +84,7 @@ public class ADManager : MonoBehaviour
 
     public void Display_Reward_Video()
     {
-        if (rewardVideoAd.IsLoaded)
+        if (rewardVideoAd.IsLoaded())
         {
             rewardVideoAd.Show();
         }
